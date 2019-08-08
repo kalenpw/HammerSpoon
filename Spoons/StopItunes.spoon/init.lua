@@ -7,9 +7,9 @@ obj.author = "Kalen Williams"
 function obj:init()
     local wf = hs.window.filter
     wf.new({"iTunes"}):subscribe(wf.windowCreated, function(window, name, caller)
-        window:focus()
-        hs.eventtap.keyStroke({}, "escape")
-        hs.eventtap.keyStroke({"cmd"}, "Q")
+        quitText = "Quit " .. name
+        closeWindow = {name, quitText}
+        window:application():selectMenuItem(closeWindow)
     end)
 end
 
