@@ -7,13 +7,14 @@ obj.author = "Kalen Williams"
 function obj:init()
     local wf = hs.window.filter
     windowsToClose = wf.new{
-        "Firefox", "Code", "FileZilla",
+        "Code", "FileZilla", "Calculator", "TextEdit",
         "MySQLWorkbench", "Spark", "Evernote", "Preview",
         "Safari", "Automator", "Activity Monitor"
     }
     windowsToClose:subscribe(wf.windowDestroyed, function(window, name, caller)
-        window:focus()
-        hs.eventtap.keyStroke({"cmd"}, "Q")
+        quitText = "Quit " .. name
+        closeWindow = {name, quitText}
+        window:application():selectMenuItem(closeWindow)
     end)
 end
 
